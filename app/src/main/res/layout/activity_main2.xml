@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main2Activity"
+    android:background="@drawable/background3"
+    >
+
+    <TextView
+        android:layout_width="255dp"
+        android:layout_height="98dp"
+        android:gravity="center"
+        android:text="@string/register2_text"
+        android:textColor="@android:color/background_light"
+
+        android:textSize="28sp"
+        app:fontFamily="sans-serif-smallcaps"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="91dp" />
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="327dp"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textMultiLine"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="315dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="250dp"
+        android:layout_height="29dp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="250dp"
+        android:layout_height="29dp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="434dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="66dp"
+        android:layout_height="26dp"
+        android:text="City"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="436dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="66dp"
+        android:layout_height="29dp"
+        android:text="State"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="399dp" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="324dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Pincode"
+        android:inputType="number"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="353dp" />
+
+
+</android.support.constraint.ConstraintLayout>
