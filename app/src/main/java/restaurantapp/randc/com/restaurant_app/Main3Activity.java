@@ -1,13 +1,8 @@
 package restaurantapp.randc.com.restaurant_app;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.androidbuts.multispinnerfilter.MultiSpinner;
-import com.androidbuts.multispinnerfilter.MultiSpinnerListener;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
