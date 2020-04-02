@@ -3,35 +3,57 @@ package restaurantapp.randc.com.restaurant_app;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ramotion.foldingcell.FoldingCell;
+
+import java.util.ArrayList;
 
 public class Main4Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample);
+        setContentView(R.layout.activity_main4);
 
-        // get our folding cell
-        final FoldingCell fc = (FoldingCell) findViewById(R.id.folding_cell);
+        ListView theListView = findViewById(R.id.mainListView);
 
-        // attach click listener to fold btn
-        final Button toggleBtn = (Button) findViewById(R.id.toggle_btn);
-        toggleBtn.setOnClickListener(new View.OnClickListener() {
+        // prepare elements to display
+        final ArrayList<Item> items = Item.getTestingList();
+
+        // add custom btn handler to first list item
+        items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fc.toggle(false);
+                Toast.makeText(getApplicationContext(), "CUSTOM HANDLER FOR FIRST BUTTON", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // attach click listener to toast btn
-        final Button toggleInstantlyBtn = (Button) findViewById(R.id.toggle_instant_btn);
-        toggleInstantlyBtn.setOnClickListener(new View.OnClickListener() {
+        // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
+        final FoldingCellListAdapter adapter = new FoldingCellListAdapter(this, items);
+
+        // add default btn handler for each request btn on each item if custom handler not found
+        adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fc.toggle(true);
+                Toast.makeText(getApplicationContext(), "DEFAULT HANDLER FOR ALL BUTTONS", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // set elements to adapter
+        theListView.setAdapter(adapter);
+
+        // set on click event listener to list view
+        theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                // toggle clicked cell state
+                ((FoldingCell) view).toggle(false);
+                // register in adapter that state for selected cell is toggled
+                adapter.registerToggle(pos);
             }
         });
 

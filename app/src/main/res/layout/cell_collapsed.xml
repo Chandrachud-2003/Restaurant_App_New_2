@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/bgContent"
     android:baselineAligned="false"
     android:orientation="horizontal">
 
     <!-- LEFT TITLE PART -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_weight="3"
+        android:background="@color/bgTitleLeft"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="20dp"
@@ -22,64 +24,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="TEST"
             android:layout_alignParentStart="true"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="26sp" />
 
         <TextView
+            android:id="@+id/title_time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meat"
-            android:textSize="17sp"
-            android:layout_marginTop="20dp"
-            />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/title_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dairy"
-            android:textSize="17sp"
-            android:layout_marginTop="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Grains"
-            android:textSize="17sp"
-            android:layout_marginTop="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fruits"
-            android:textSize="17sp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetables"
-            android:textSize="17sp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Meat"
-            android:textSize="17sp"
-           />
+            android:layout_above="@id/title_time_label"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
 
 
-
-    </LinearLayout>
+    </RelativeLayout>
     <!-- RIGHT TITLE PART -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="@color/bgTitleRight"
         android:paddingBottom="20dp"
         android:paddingEnd="20dp"
         android:paddingLeft="15dp"
@@ -95,7 +71,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-             />
+            android:src="@drawable/from_to_purple" />
 
         <TextView
             android:id="@+id/title_from_address"
@@ -120,7 +96,7 @@
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/title_from_to_dots"
             android:layout_toRightOf="@+id/title_from_to_dots"
-             />
+            android:src="@color/contentDividerLine" />
 
         <TextView
             android:id="@+id/title_to_address"
@@ -138,7 +114,7 @@
 
         <TextView
             android:id="@+id/title_requests_count"
-
+            style="@style/TitleBadgeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -146,44 +122,49 @@
             android:layout_alignParentStart="true" />
 
         <TextView
+            style="@style/TitleBadgeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/title_requests_count"
             android:layout_alignLeft="@id/title_requests_count"
             android:layout_alignStart="@id/title_requests_count"
-            android:text="Test" />
+            android:text="@string/requests_count_badge" />
 
         <TextView
             android:id="@+id/title_weight"
+            style="@style/TitleBadgeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Test" />
+            android:text="@string/weight_mock" />
 
         <TextView
+            style="@style/TitleBadgeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/title_weight"
             android:layout_alignLeft="@id/title_weight"
             android:layout_alignStart="@id/title_weight"
-            android:text="Test" />
+            android:text="@string/weight_badge" />
 
         <TextView
             android:id="@+id/title_pledge"
+            style="@style/TitleBadgeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
         <TextView
+            style="@style/TitleBadgeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/title_pledge"
             android:layout_alignLeft="@id/title_pledge"
             android:layout_alignStart="@id/title_pledge"
-            android:text="TEST" />
+            android:text="@string/pledge_badge" />
 
     </RelativeLayout>
 </LinearLayout>
