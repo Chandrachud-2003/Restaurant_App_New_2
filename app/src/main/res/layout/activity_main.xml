@@ -40,7 +40,7 @@
         android:hint="Organization Name"
         android:inputType="textPersonName"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="73dp"
+        tools:layout_editor_absoluteX="76dp"
         tools:layout_editor_absoluteY="278dp" />
 
     <EditText
