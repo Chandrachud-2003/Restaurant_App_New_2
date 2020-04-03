@@ -19,12 +19,34 @@ public class Main4Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
 
+        /*final FoldingCell fc = (FoldingCell) findViewById(R.id.folding_cell);
+
+        // attach click listener to fold btn
+        final Button toggleBtn = (Button) findViewById(R.id.toggle_btn);
+        toggleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fc.toggle(false);
+            }
+        });
+
+        // attach click listener to toast btn
+        final Button toggleInstantlyBtn = (Button) findViewById(R.id.toggle_instant_btn);
+        toggleInstantlyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fc.toggle(true);
+            }
+        });*/
+
+
+
         ListView theListView = findViewById(R.id.mainListView);
 
-        // prepare elements to display
+        //prepare elements to display
         final ArrayList<Item> items = Item.getTestingList();
 
-        // add custom btn handler to first list item
+         //add custom btn handler to first list item
         items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,10 +54,10 @@ public class Main4Activity extends AppCompatActivity {
             }
         });
 
-        // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
+         //create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
         final FoldingCellListAdapter adapter = new FoldingCellListAdapter(this, items);
 
-        // add default btn handler for each request btn on each item if custom handler not found
+        //add default btn handler for each request btn on each item if custom handler not found
         adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,10 +65,10 @@ public class Main4Activity extends AppCompatActivity {
             }
         });
 
-        // set elements to adapter
+         //set elements to adapter
         theListView.setAdapter(adapter);
 
-        // set on click event listener to list view
+        //set on click event listener to list view
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
