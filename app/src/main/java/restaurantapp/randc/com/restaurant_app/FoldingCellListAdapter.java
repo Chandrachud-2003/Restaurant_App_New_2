@@ -1,7 +1,7 @@
 package restaurantapp.randc.com.restaurant_app;
 
+
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +14,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import restaurantapp.randc.com.restaurant_app.Item;
+import restaurantapp.randc.com.restaurant_app.R;
 
-/**
- * Simple example of ListAdapter for using with Folding Cell
- * Adapter holds indexes of unfolded elements for correct work with default reusable views behavior
- */
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
@@ -42,14 +39,14 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             LayoutInflater vi = LayoutInflater.from(getContext());
             cell = (FoldingCell) vi.inflate(R.layout.cell, parent, false);
             // binding view parts to view holder
-           /* viewHolder.price = cell.findViewById(R.id.title_price);
+            viewHolder.price = cell.findViewById(R.id.title_price);
             viewHolder.time = cell.findViewById(R.id.title_time_label);
             viewHolder.date = cell.findViewById(R.id.title_date_label);
             viewHolder.fromAddress = cell.findViewById(R.id.title_from_address);
             viewHolder.toAddress = cell.findViewById(R.id.title_to_address);
             viewHolder.requestsCount = cell.findViewById(R.id.title_requests_count);
             viewHolder.pledgePrice = cell.findViewById(R.id.title_pledge);
-            viewHolder.contentRequestBtn = cell.findViewById(R.id.content_request_btn);*/
+            viewHolder.contentRequestBtn = cell.findViewById(R.id.content_request_btn);
             cell.setTag(viewHolder);
         } else {
             // for existing cell set valid valid state(without animation)
@@ -65,20 +62,20 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             return cell;
 
         // bind data from selected element to view through view holder
-        /*viewHolder.price.setText(item.getPrice());
+        viewHolder.price.setText(item.getPrice());
         viewHolder.time.setText(item.getTime());
         viewHolder.date.setText(item.getDate());
         viewHolder.fromAddress.setText(item.getFromAddress());
         viewHolder.toAddress.setText(item.getToAddress());
         viewHolder.requestsCount.setText(String.valueOf(item.getRequestsCount()));
-        viewHolder.pledgePrice.setText(item.getPledgePrice());*/
+        viewHolder.pledgePrice.setText(item.getPledgePrice());
 
         // set custom btn handler for list item from that item
         if (item.getRequestBtnClickListener() != null) {
-            //viewHolder.contentRequestBtn.setOnClickListener(item.getRequestBtnClickListener());
+            viewHolder.contentRequestBtn.setOnClickListener(item.getRequestBtnClickListener());
         } else {
             // (optionally) add "default" handler if no handler found in item
-            //viewHolder.contentRequestBtn.setOnClickListener(defaultRequestBtnClickListener);
+            viewHolder.contentRequestBtn.setOnClickListener(defaultRequestBtnClickListener);
         }
 
         return cell;
@@ -110,13 +107,14 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
     // View lookup cache
     private static class ViewHolder {
-        /*TextView price;
+        TextView price;
         TextView contentRequestBtn;
         TextView pledgePrice;
         TextView fromAddress;
         TextView toAddress;
         TextView requestsCount;
         TextView date;
-        TextView time;*/
+        TextView time;
     }
 }
+
