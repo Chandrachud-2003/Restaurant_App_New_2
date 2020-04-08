@@ -9,7 +9,7 @@
     <!-- LEFT TITLE PART -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="155dp"
+        android:layout_height="125dp"
         android:layout_weight="3"
         android:background="@color/bgTitleLeft"
         android:gravity="center_horizontal"
@@ -56,12 +56,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/bgTitleRight"
-        android:paddingBottom="20dp"
+        android:paddingBottom="5dp"
         android:paddingEnd="20dp"
-        android:paddingLeft="15dp"
+        android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingStart="15dp"
-        android:paddingTop="20dp">
+        android:paddingTop="15dp">
 
         <ImageView
             android:id="@+id/title_from_to_dots"

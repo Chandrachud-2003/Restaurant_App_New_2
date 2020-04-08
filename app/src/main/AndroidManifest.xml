@@ -12,17 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
-        <activity android:name=".Main4Activity">
+        <activity android:name=".registration1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".Main3Activity" />
+        <activity android:name=".registration2" />
+        <activity android:name=".registration3" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Main5Activity"></activity>
     </application>
 
 </manifest>

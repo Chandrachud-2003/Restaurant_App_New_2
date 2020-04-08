@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main2Activity"
+    tools:context=".registration2"
     android:background="@drawable/background3"
     >
 
@@ -75,6 +75,26 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="353dp" />
+
+    <com.manojbhadane.QButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="CONTINUE"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:qb_backgroundColor="@color/green"
+        app:qb_radius="40"
+        app:qb_strokeColor="@color/green"
+        app:qb_strokeWidth="5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

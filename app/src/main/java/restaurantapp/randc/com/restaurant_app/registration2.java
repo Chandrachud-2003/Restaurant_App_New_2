@@ -1,17 +1,13 @@
 package restaurantapp.randc.com.restaurant_app;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 
 public class registration2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-
-
+        setContentView(R.layout.registration2);
     }
-
 }
