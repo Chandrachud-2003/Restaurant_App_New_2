@@ -9,6 +9,8 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
+
+
     <xyz.sahildave.arclayout.ArcLayout
         android:id="@+id/arc_layout"
         android:layout_width="match_parent"
@@ -35,6 +37,18 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/verify_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Please verify your email.\nVerification link has been sent to your mail."
+                android:textColor="@color/white"
+                android:textSize="15dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,9 +57,10 @@
                 android:text="50"
                 android:textColor="@color/white"
 
-                android:textSize="100dp" />
+                android:textSize="80dp" />
 
             <TextView
+                android:id="@+id/name_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

@@ -1,12 +1,21 @@
 package restaurantapp.randc.com.restaurant_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -20,13 +29,25 @@ import java.util.ArrayList;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private TextView nameView;
+    private TextView verify;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
+        mAuth = FirebaseAuth.getInstance();
         // get our list view
         ListView theListView = findViewById(R.id.mainListView);
+        FirebaseUser user = mAuth.getCurrentUser();
+        nameView = findViewById(R.id.name_view);
+        verify = findViewById(R.id.verify_view);
+        if(user.isEmailVerified())
+        {
+            verify.setVisibility(View.GONE);
+        }
 
         // prepare elements to display
         final ArrayList<Item> items = Item.getTestingList();
@@ -58,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Toast.makeText(MainActivity.this, "DBOOM", Toast.LENGTH_SHORT).show();
                 // toggle clicked cell state
                 ((FoldingCell) view).toggle(false);
                 // register in adapter that state for selected cell is toggled
@@ -66,6 +86,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+        String email = user.getEmail();
+        db.collection("Restaurant").document(email).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String name = documentSnapshot.getString("Name");
+                            nameView.setText(name);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", e.toString());
+                    }
+                });
+
+
     }
+    @Override
+    public void onBackPressed() {
+        // Disabling back button for current activity
+    }
+
 }
 
