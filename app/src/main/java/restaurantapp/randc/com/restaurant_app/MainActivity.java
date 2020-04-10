@@ -88,28 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        String email = user.getEmail();
-        db.collection("Restaurant").document(user.getDisplayName()).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            String name = documentSnapshot.getString("Phone Number");
-                            nameView.setText(name);
-                        } else {
-                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", e.toString());
-                    }
-                });
-
-
+      //  String email = user.getEmail();
+        nameView.setText(user.getDisplayName());
     }
     @Override
     public void onBackPressed() {
