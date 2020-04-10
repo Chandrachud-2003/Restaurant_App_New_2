@@ -59,7 +59,7 @@ public class registration3 extends AppCompatActivity {
                 note.put("Address",getIntent().getStringExtra("address"));
                 note.put("Phone Number",getIntent().getStringExtra("phno"));
                 note.put("Pincode",getIntent().getStringExtra("pincode"));
-                db.collection("Restaurant").document(getIntent().getStringExtra("email")).set(note)
+                db.collection("Restaurant").document(getIntent().getStringExtra("name").trim()).set(note)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

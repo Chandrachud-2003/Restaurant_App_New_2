@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".resetpassword"></activity>
-        <activity android:name=".loginpage" />
-        <activity android:name=".registration1">
+        <activity android:name=".registration1" />
+        <activity android:name=".loginpage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

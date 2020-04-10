@@ -31,11 +31,16 @@ public class loginpage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user!=null){
+            Intent intent = new Intent(loginpage.this, MainActivity.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_loginpage);
         next_button2 = findViewById(R.id.next_button2);
         registrationbutton = findViewById(R.id.buttonregister);
-        mAuth = FirebaseAuth.getInstance();
+
         resetbutton = findViewById(R.id.buttonreset);
         emailView = findViewById(R.id.editText2);
         passwordView = findViewById(R.id.editText5);

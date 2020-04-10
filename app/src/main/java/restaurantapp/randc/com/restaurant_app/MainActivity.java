@@ -89,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         String email = user.getEmail();
-        db.collection("Restaurant").document(email).get()
+        db.collection("Restaurant").document(user.getDisplayName()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            String name = documentSnapshot.getString("Name");
+                            String name = documentSnapshot.getString("Phone Number");
                             nameView.setText(name);
                         } else {
                             Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
