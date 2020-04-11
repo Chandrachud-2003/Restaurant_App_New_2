@@ -3,11 +3,13 @@ package restaurantapp.randc.com.restaurant_app;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -42,7 +44,7 @@ import java.util.Arrays;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView nameView;
     private TextView verify;
@@ -64,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        mAuth = FirebaseAuth.getInstance();
+
         // get our list view
         ListView theListView = findViewById(R.id.mainListView);
         menuButton = findViewById(R.id.menuButton);
 
 
 
-        /*FirebaseUser user = mAuth.getCurrentUser();
+
         nameView = findViewById(R.id.name_view);
-        verify = findViewById(R.id.verify_view);
+       /* verify = findViewById(R.id.verify_view);
         if(user.isEmailVerified())
         {
             verify.setVisibility(View.GONE);
@@ -117,11 +119,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getDisplayName();
+        nameView.setText(email);
+       //
 
-      //  String email = user.getEmail();
-       // nameView.setText(user.getDisplayName());
 
+      /*  db.collection("Restaurant").document().get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String name = documentSnapshot.getString("name");
+                            //String description = documentSnapshot.getString(KEY_DESCRIPTION);
 
+                            //Map<String, Object> note = documentSnapshot.getData();
+
+                            nameView.setText(name);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", e.toString());
+                    }
+                });
+
+*/
 
         //Sliding Root Nav
 
@@ -188,10 +216,31 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position)
         {
-            case 1:
+            case 5:
             {
-                Intent intent = new Intent(MainActivity.this, loginpage.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Log Out");
+                builder.setMessage("Are sure you want to log out?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+                        //Intent intent = new Intent(MainActivity.this, loginpage.class);
+                        // startActivity(intent);
+
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
             }
             case 2:
