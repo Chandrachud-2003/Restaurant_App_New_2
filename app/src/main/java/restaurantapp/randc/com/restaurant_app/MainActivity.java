@@ -1,11 +1,21 @@
 package restaurantapp.randc.com.restaurant_app;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.foldingcell.FoldingCell;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //485
 //import com.ramotion.foldingcell.examples.R;
@@ -34,6 +47,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView nameView;
     private TextView verify;
 
+    private SlidingRootNav slidingRootNav;
+
+    private static final int POS_DASHBOARD = 0;
+    private static final int POS_ACCOUNT = 1;
+    private static final int POS_MESSAGES = 2;
+    private static final int POS_CART = 3;
+    private static final int POS_LOGOUT = 5;
+
+    private String[] screenTitles;
+    private Drawable[] screenIcons;
+
+    private ImageButton menuButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +67,22 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         // get our list view
         ListView theListView = findViewById(R.id.mainListView);
-        FirebaseUser user = mAuth.getCurrentUser();
+        menuButton = findViewById(R.id.menuButton);
+
+
+
+        /*FirebaseUser user = mAuth.getCurrentUser();
         nameView = findViewById(R.id.name_view);
         verify = findViewById(R.id.verify_view);
         if(user.isEmailVerified())
         {
             verify.setVisibility(View.GONE);
-        }
+        }*/
 
-        // prepare elements to display
+
+
         final ArrayList<Item> items = Item.getTestingList();
 
-        // add custom btn handler to first list item
         items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,11 +119,120 @@ public class MainActivity extends AppCompatActivity {
 
 
       //  String email = user.getEmail();
-        nameView.setText(user.getDisplayName());
+       // nameView.setText(user.getDisplayName());
+
+
+
+        //Sliding Root Nav
+
+        slidingRootNav = new SlidingRootNavBuilder(this)
+
+                .withMenuOpened(false)
+                .withContentClickableWhenMenuOpened(false)
+                .withSavedState(savedInstanceState)
+                .withMenuLayout(R.layout.menu_left_drawer)
+                .inject();
+
+
+
+        screenIcons = loadScreenIcons();
+        screenTitles = loadScreenTitles();
+
+        DrawerAdapter adapter2 = new DrawerAdapter(Arrays.asList(
+                createItemFor(POS_DASHBOARD).setChecked(true),
+                createItemFor(POS_ACCOUNT),
+                createItemFor(POS_MESSAGES),
+                createItemFor(POS_CART),
+                new SpaceItem(48),
+                createItemFor(POS_LOGOUT)));
+        adapter2.setListener(new DrawerAdapter.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int position) {
+                MainActivity.this.onItemSelected(position);
+            }
+        });
+
+        RecyclerView list = findViewById(R.id.list);
+        list.setNestedScrollingEnabled(false);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapter2);
+
+        adapter2.setSelected(POS_DASHBOARD);
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.openMenu();
+            }
+        });
+
+
+
+
+
+
+
     }
     @Override
     public void onBackPressed() {
         // Disabling back button for current activity
+    }
+
+    public void onItemSelected(int position) {
+        if (position == POS_LOGOUT) {
+            finish();
+        }
+
+
+        slidingRootNav.closeMenu();
+
+        switch (position)
+        {
+            case 1:
+            {
+                Intent intent = new Intent(MainActivity.this, loginpage.class);
+                startActivity(intent);
+                break;
+            }
+            case 2:
+            {
+                Intent intent = new Intent(MainActivity.this, SearchClass.class);
+                startActivity(intent);
+                break;
+            }
+        }
+
+    }
+
+
+    private DrawerItem createItemFor(int position) {
+        return new SimpleItem(screenIcons[position], screenTitles[position])
+                .withIconTint(color(R.color.textColorSecondary))
+                .withTextTint(color(R.color.textColorPrimary))
+                .withSelectedIconTint(color(R.color.colorAccent))
+                .withSelectedTextTint(color(R.color.colorAccent));
+    }
+
+    private String[] loadScreenTitles() {
+        return getResources().getStringArray(R.array.ld_activityScreenTitles);
+    }
+
+    private Drawable[] loadScreenIcons() {
+        TypedArray ta = getResources().obtainTypedArray(R.array.ld_activityScreenIcons);
+        Drawable[] icons = new Drawable[ta.length()];
+        for (int i = 0; i < ta.length(); i++) {
+            int id = ta.getResourceId(i, 0);
+            if (id != 0) {
+                icons[i] = ContextCompat.getDrawable(this, id);
+            }
+        }
+        ta.recycle();
+        return icons;
+    }
+
+    @ColorInt
+    private int color(@ColorRes int res) {
+        return ContextCompat.getColor(this, res);
     }
 
 }
