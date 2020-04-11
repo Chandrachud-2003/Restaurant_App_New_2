@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,17 +49,21 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView nameView;
     private TextView verify;
+    private Button settingsButton;
+    private Button logoutButton;
 
     private SlidingRootNav slidingRootNav;
 
     private static final int POS_DASHBOARD = 0;
-    private static final int POS_ACCOUNT = 1;
-    private static final int POS_MESSAGES = 2;
-    private static final int POS_CART = 3;
-    private static final int POS_LOGOUT = 5;
+    private static final int POS_SEARCH = 1;
+    private static final int POS_ORDER = 2;
+    private static final int POS_PLUS = 3;
+    private static final int POS_PROFILE = 4;
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
+
+
 
     private ImageButton menuButton;
 
@@ -72,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
         menuButton = findViewById(R.id.menuButton);
 
 
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         nameView = findViewById(R.id.name_view);
-       /* verify = findViewById(R.id.verify_view);
+       verify = findViewById(R.id.verify_view);
         if(user.isEmailVerified())
         {
             verify.setVisibility(View.GONE);
-        }*/
+        }
 
 
 
@@ -119,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getDisplayName();
-        nameView.setText(email);
+
+        String displayname = user.getDisplayName();
+        nameView.setText(displayname);
        //
 
 
@@ -168,11 +173,10 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerAdapter adapter2 = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_DASHBOARD).setChecked(true),
-                createItemFor(POS_ACCOUNT),
-                createItemFor(POS_MESSAGES),
-                createItemFor(POS_CART),
-                new SpaceItem(48),
-                createItemFor(POS_LOGOUT)));
+                createItemFor(POS_SEARCH),
+                createItemFor(POS_ORDER),
+                createItemFor(POS_PLUS),
+                createItemFor(POS_PROFILE)));
         adapter2.setListener(new DrawerAdapter.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int position) {
@@ -194,6 +198,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        logoutButton = findViewById(R.id.logoutButton);
+        settingsButton = findViewById(R.id.settignsButton);
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+
+
+
 
 
 
@@ -207,48 +223,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onItemSelected(int position) {
-        if (position == POS_LOGOUT) {
-            finish();
-        }
+
 
 
         slidingRootNav.closeMenu();
 
         switch (position)
         {
-            case 5:
+            case 0:
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setCancelable(true);
-                builder.setTitle("Log Out");
-                builder.setMessage("Are sure you want to log out?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        //FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_SHORT).show();
-                        //Intent intent = new Intent(MainActivity.this, loginpage.class);
-                        // startActivity(intent);
-
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                slidingRootNav.closeMenu();
                 break;
             }
-            case 2:
+            case 1:
             {
                 Intent intent = new Intent(MainActivity.this, SearchClass.class);
                 startActivity(intent);
                 break;
             }
+            case 2:
+            {
+               // Intent intent = new Intent(MainActivity.this, SearchClass.class);
+                //startActivity(intent);
+                break;
+            }
+
+
+            case 3:
+            {
+                //Intent intent = new Intent(MainActivity.this, SearchClass.class);
+                //startActivity(intent);
+                break;
+            }
+
+            case 4:
+            {
+                //Intent intent = new Intent(MainActivity.this, SearchClass.class);
+                //startActivity(intent);
+                break;
+            }
+
+
+
         }
 
     }
@@ -256,10 +272,9 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerItem createItemFor(int position) {
         return new SimpleItem(screenIcons[position], screenTitles[position])
-                .withIconTint(color(R.color.textColorSecondary))
-                .withTextTint(color(R.color.textColorPrimary))
-                .withSelectedIconTint(color(R.color.colorAccent))
-                .withSelectedTextTint(color(R.color.colorAccent));
+                .withTextTint(color(R.color.greenText))
+                .withSelectedIconTint(color(R.color.white))
+                .withSelectedTextTint(color(R.color.white));
     }
 
     private String[] loadScreenTitles() {
@@ -282,6 +297,33 @@ public class MainActivity extends AppCompatActivity {
     @ColorInt
     private int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
+    }
+
+    private void logout()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(true);
+        builder.setTitle("Log Out");
+        builder.setMessage("Are sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, loginpage.class);
+                startActivity(intent);
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }

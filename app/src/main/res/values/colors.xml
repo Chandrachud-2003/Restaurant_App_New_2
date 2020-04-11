@@ -36,6 +36,9 @@
     <color name="colorBlack">#000</color>
     <color name="colorTransparent">#00000000</color>
     <color name="colorRipple">#44FFFFFF</color>
+    <color name="greenBack">#416C6E</color>
+    <color name="greenText">#89B6B7</color>
+
 
     <color name="colorPaleBlue">#436892</color>
     <color name="colorPaleBlueLight">#c3d3e6</color>
